@@ -1,0 +1,123 @@
+import { useState } from "react";
+import VerseDisplay from "../components/VerseDisplay";
+import ReflectionForm from "../components/ReflectionForm";
+import { useEffect } from "react";
+import ReflectionService from "../services/ReflectionService";
+import MessageBoard from "../components/MessageBoard";
+import { useAuth } from "../context/AuthContext";
+
+const Home = () => {
+  const [VOD, setVOD] = useState("");
+  const [reference, setReference] = useState("");
+  const [version, setVersion] = useState("");
+  const [reflections, setReflections] = useState([]);
+  const { currentUser, loading } = useAuth();
+  console.log("✅ App component mounted");
+
+  const fetchReflection = async () => {
+    try {
+      const data = await ReflectionService.getReflections();
+      setReflections(data);
+      console.log(" fetch update made", data);
+    } catch (err) {
+      throw Error(`Failed to get reflection: ${err.message}`);
+    }
+  };
+
+  const deleteReflection = async (id) => {
+    if (!currentUser) {
+      return;
+    }
+    try {
+      const token = await currentUser.getIdToken();
+      const response = await ReflectionService.deleteReflection(id, token);
+      console.log(response);
+      await fetchReflection();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const addReflection = async (content, tone, word_count) => {
+    if (!currentUser) {
+      return;
+    }
+    console.log("addReflection was hit", content, tone, word_count, reference);
+    const newReflection = {
+      user_id: currentUser.uid,
+      user_name: currentUser.displayName,
+      content: content,
+      reference_verse: reference,
+      tone: tone,
+      word_count: word_count,
+    };
+
+    console.log(newReflection);
+
+    try {
+      const token = await currentUser.getIdToken();
+      const repsonse = await ReflectionService.createReflection(
+        newReflection,
+        token
+      );
+      console.log(repsonse, " from add");
+      await fetchReflection();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const fetchVerse = async () => {
+      const verseOfDay = await ReflectionService.getVerseOfTheDay();
+      console.log(verseOfDay);
+      console.log(currentUser);
+      setVOD(verseOfDay.verse.details.text);
+      setReference(verseOfDay.verse.details.reference);
+      setVersion(verseOfDay.verse.details.version);
+    };
+
+    fetchVerse();
+  }, []);
+
+  useEffect(() => {
+    fetchReflection();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-50 max-w-full py-4">
+      <div className="min-w-full bg-stone-100  text-black">
+        Let's be those who reflect{" "}
+      </div>
+      {loading ? (
+        <div> Processing...</div>
+      ) : (
+        <div className="flex flex-col w-full justify-center align-center text-center gap-4 mt-4">
+          <VerseDisplay
+            verse={VOD}
+            reference={reference}
+            version={version}
+          ></VerseDisplay>
+          <div className="h-full flex flex-col justify-between items-center w-10/12 mx-auto gap-4 text-black">
+            <ReflectionForm addReflection={addReflection} />
+
+            <div
+              className="flex flex-col bg-white
+             w-full border border-1 border-gray-400  p-4 h-auto rounded-2xl gap-4"
+            >
+              {reflections.map((reflection) => (
+                <MessageBoard
+                  key={reflection.id}
+                  reflect={reflection}
+                  deleteFunc={deleteReflection}
+                ></MessageBoard>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Home;
