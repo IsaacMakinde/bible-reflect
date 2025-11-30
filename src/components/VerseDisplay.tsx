@@ -7,10 +7,13 @@ type verseProps = {
 };
 const VerseDisplay: React.FC<verseProps> = ({ verse, reference, version }) => {
   return (
-    <div className="flex flex-col p-12 h-48 w-10/12 self-center justify-center text-center align-middle items-center rounded-2xl border border-1 border-gray-400 bg-gray-100 text-black">
-      <p className=" md:text-lg sm:text-sm">{verse}</p>
-      <p>{reference}</p>
-      <p>{version}</p>
+    <div
+      className="flex flex-col w-10/12 mx-auto bg-white shadow-sm 
+            border border-gray-200 rounded-2xl p-6 items-center gap-2"
+    >
+      <p className="text-xl font-semibold">{verse}</p>
+      <p className="text-sm text-gray-700">{reference}</p>
+      <p className="text-xs text-gray-500">{version}</p>
     </div>
   );
 };
