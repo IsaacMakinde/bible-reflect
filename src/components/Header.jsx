@@ -12,7 +12,7 @@ const Header = () => {
           <image href="../assets/igm_logo.png"></image>
           <img
             src={logo}
-            className="rounded-full border-2 hover:scale-110 transition:ease-in duration-300 h-20 w-20"
+            className="rounded-full border-2 border-sky-500 hover:scale-110 transition:ease-in duration-300 h-20 w-20"
           ></img>
         </a>
 
@@ -46,14 +46,14 @@ const Header = () => {
               <div className="sm:flex sm:gap-4">
                 <Link
                   to={"/login"}
-                  className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+                  className="block rounded-md bg-rose-200 px-5 py-2.5 text-sm font-medium text-black transition hover:bg-red-100"
                 >
                   Login
                 </Link>
 
                 <Link
                   to={"/register"}
-                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black transition hover:bg-sky-500 sm:block"
                   href="#"
                 >
                   Register

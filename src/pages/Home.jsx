@@ -85,34 +85,37 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 max-w-full py-4">
-      <div className="min-w-full bg-stone-100  text-black">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-white max-w-full gap-4 py-4">
+      <div className=" bg-black  flex  justify-center items-center text-white h-12 w-3/4 just rounded-2xl">
         Let's be those who reflect{" "}
       </div>
       {loading ? (
         <div> Processing...</div>
       ) : (
-        <div className="flex flex-col w-full justify-center align-center text-center gap-4 mt-4">
+        <div className="flex flex-col w-full justify-center align-center text-center gap-20 mt-4">
           <VerseDisplay
             verse={VOD}
             reference={reference}
             version={version}
           ></VerseDisplay>
-          <div className="h-full flex flex-col justify-between items-center w-10/12 mx-auto gap-4 text-black">
+          <div className="h-full flex flex-col justify-between items-center w-10/12 mx-auto gap-20 text-black">
             <ReflectionForm addReflection={addReflection} />
-
-            <div
-              className="flex flex-col bg-white
+            {reflections.length > 0 ? (
+              <div
+                className="flex flex-col bg-red-100
              w-full border border-1 border-gray-400  p-4 h-auto rounded-2xl gap-4"
-            >
-              {reflections.map((reflection) => (
-                <MessageBoard
-                  key={reflection.id}
-                  reflect={reflection}
-                  deleteFunc={deleteReflection}
-                ></MessageBoard>
-              ))}
-            </div>
+              >
+                {reflections.map((reflection) => (
+                  <MessageBoard
+                    key={reflection.id}
+                    reflect={reflection}
+                    deleteFunc={deleteReflection}
+                  ></MessageBoard>
+                ))}
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       )}
