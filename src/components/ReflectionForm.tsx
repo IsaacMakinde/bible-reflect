@@ -34,7 +34,7 @@ const ReflectionForm: React.FC<ReflectProps> = ({ addReflection }) => {
     <form
       onSubmit={handleSubmit}
       action="#"
-      className="flex flex-col h-auto  w-full space-y-4 rounded-2xl border border-2 border-sky-500  p-6 "
+      className="flex flex-col h-auto  w-full space-y-4 rounded-2xl border border-2 border-sky-500 p-6 "
     >
       <div className="flex flex-col gap-4">
         <label className="block text-sm font-medium text-gray-900">
@@ -60,7 +60,7 @@ const ReflectionForm: React.FC<ReflectProps> = ({ addReflection }) => {
       ) : (
         <button
           type="button"
-          className="block w-full rounded-lg bg-sky-500 px-12 py-3 text-sm font-medium text-black transition-colors ..."
+          className="flex justify-self-end justify-center items-center w-1/3 self-end rounded-2xl  bg-sky-500 px-12 py-3 text-sm font-medium text-black transition-colors  hover:text-gray-400 hover:bg-red-100 disabled:cursor-not-allowed disabled:hover:text-black"
           disabled
         >
           Processing…

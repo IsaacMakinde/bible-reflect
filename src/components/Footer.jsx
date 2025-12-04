@@ -88,7 +88,6 @@ const Footer = () => {
                   </svg>
                 </a>
               </li> */}
-
               <li>
                 <a
                   href="https://www.instagram.com/igm_builds/"
@@ -112,7 +111,6 @@ const Footer = () => {
                   </svg>
                 </a>
               </li>
-
               <li>
                 <a
                   href="https://github.com/IsaacMakinde"
@@ -159,7 +157,7 @@ const Footer = () => {
                     ></path>
                   </svg>
                 </a>
-              </li> */}
+              </li> */}{" "}
             </ul>
           </div>
 
@@ -254,7 +252,7 @@ const Footer = () => {
         </div>
 
         <p className="text-xs text-gray-500">
-          © 2025. IGM. All rights reserved.
+          © 2026. IGM. All rights reserved.
         </p>
       </div>
     </footer>

@@ -53,7 +53,7 @@ const Header = () => {
 
                 <Link
                   to={"/register"}
-                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black transition hover:bg-sky-500 sm:block"
+                  className="hidden rounded-md bg-sky-500 px-5 py-2.5 text-sm font-medium text-black transition hover:bg-red-100 sm:block"
                   href="#"
                 >
                   Register
@@ -62,7 +62,6 @@ const Header = () => {
             ) : (
               <UserDropdown currentUser={currentUser}></UserDropdown>
             )}
-
             <button className="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
               <span className="sr-only">Toggle menu</span>
               <svg
