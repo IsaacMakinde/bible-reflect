@@ -26,20 +26,22 @@ const MessageBoard: React.FC<MessageProps> = ({ reflect, deleteFunc }) => {
   };
   return (
     <div className="flex p-4 flex-col bg-white h-auto min-h-40 border border-gray-200  shadow-xs shadow-gray-50 rounded-2xl p-4">
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row justify-center items-center gap-2">
-          <User></User>
+      <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0">
+        <div className="flex flex-row justify-center items-center text-sm gap-2">
+          <User />
           {reflect.user_name}
         </div>
-        <div className="flex flex-row justify-center items-center gap-5 bg-white ">
+
+        <div className="flex flex-row justify-center items-center gap-5 bg-white">
           <div className="flex flex-row text-gray-500 gap-1">
             <Clock /> <span>{formatTime(reflect.updated_at)}</span>
           </div>
-          <div className="flex p-2 rounded-2xl hover:bg-red-100">
-            {userLoggedIn && currentUser?.uid === reflect.user_id && (
-              <Trash2 color="red" onClick={() => deleteFunc(reflect.id)} />
-            )}
-          </div>
+
+          {userLoggedIn && currentUser?.uid === reflect.user_id && (
+            <div className="flex p-2 text-red-500 hover:text-black">
+              <Trash2 onClick={() => deleteFunc(reflect.id)} />
+            </div>
+          )}
         </div>
       </div>
       <div className="flex-1" /> {/* Spacer pushes next element down */}
