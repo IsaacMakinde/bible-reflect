@@ -2,6 +2,8 @@ import { useState } from "react";
 import { detectTone } from "../utils/detectTone";
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { Send } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 type ReflectProps = {
   addReflection(trimmed: String, tone: String, word_count: number): void;
@@ -51,19 +53,20 @@ const ReflectionForm: React.FC<ReflectProps> = ({ addReflection }) => {
       </div>
       {!waitingForResponse ? (
         <button
-          className="flex justify-self-end justify-center items-center w-1/3 self-end rounded-2xl  bg-sky-500 px-12 py-3 text-sm font-medium text-black transition-colors  hover:text-gray-400 hover:bg-red-100 disabled:cursor-not-allowed disabled:hover:text-black"
+          className="flex justify-self-end justify-between items-center self-end rounded-2xl h-10 bg-sky-500 px-4 gap-4 py-3 text-md font-medium text-black transition-colors  hover:text-gray-400 hover:bg-red-100 disabled:cursor-not-allowed disabled:hover:text-black"
           type="submit"
           disabled={!userLoggedIn}
         >
-          Post Reflection
+          <Send />
+          <p>Post Message</p>
         </button>
       ) : (
         <button
           type="button"
-          className="flex justify-self-end justify-center items-center w-1/3 self-end rounded-2xl  bg-sky-500 px-12 py-3 text-sm font-medium text-black transition-colors  hover:text-gray-400 hover:bg-red-100 disabled:cursor-not-allowed disabled:hover:text-black"
+          className="flex justify-self-end justify-between items-center self-end rounded-2xl h-10 bg-sky-500 px-4 gap-4 py-3 text-md font-medium text-black transition-colors  hover:text-gray-400 hover:bg-red-100 disabled:cursor-not-allowed disabled:hover:text-black"
           disabled
         >
-          Processing…
+          <LoaderCircle className="animate-spin" /> Processing...
         </button>
       )}
     </form>

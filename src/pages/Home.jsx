@@ -102,7 +102,7 @@ const Home = () => {
             <ReflectionForm addReflection={addReflection} />
             {reflections.length > 0 ? (
               <div
-                className="flex flex-col bg-red-100
+                className="flex flex-col bg-white
              w-full border border-1 border-gray-400  p-4 h-auto rounded-2xl gap-4"
               >
                 {reflections.map((reflection) => (
