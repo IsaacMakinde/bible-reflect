@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ReflectionService from "../services/ReflectionService";
 import MessageBoard from "../components/MessageBoard";
 import { useAuth } from "../context/AuthContext";
+import DailyStatistics from "../components/DailyStatisctics";
 
 const Home = () => {
   const [VOD, setVOD] = useState("");
@@ -101,18 +102,21 @@ const Home = () => {
           <div className="h-full flex flex-col justify-between items-center w-10/12 mx-auto gap-20 text-black">
             <ReflectionForm addReflection={addReflection} />
             {reflections.length > 0 ? (
-              <div
-                className="flex flex-col bg-white
-             w-full border border-1 border-gray-400  p-4 h-auto rounded-2xl gap-4"
-              >
-                {reflections.map((reflection) => (
-                  <MessageBoard
-                    key={reflection.id}
-                    reflect={reflection}
-                    deleteFunc={deleteReflection}
-                  ></MessageBoard>
-                ))}
-              </div>
+              <>
+                <div
+                  className="flex flex-col bg-white
+             w-full border border-1 border-gray-300  p-4 h-auto rounded-3xl shadow-md gap-4"
+                >
+                  {reflections.map((reflection) => (
+                    <MessageBoard
+                      key={reflection.id}
+                      reflect={reflection}
+                      deleteFunc={deleteReflection}
+                    ></MessageBoard>
+                  ))}
+                </div>
+                <DailyStatistics reflections={reflections}></DailyStatistics>
+              </>
             ) : (
               <div></div>
             )}

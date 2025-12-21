@@ -36,7 +36,7 @@ const ReflectionForm: React.FC<ReflectProps> = ({ addReflection }) => {
     <form
       onSubmit={handleSubmit}
       action="#"
-      className="flex flex-col h-auto  w-full space-y-4 rounded-2xl border border-2 border-sky-500 p-6 "
+      className="flex flex-col h-auto  w-full space-y-4 rounded-3xl border border-2 border-sky-500 shadow-md p-6 "
     >
       <div className="flex flex-col gap-4">
         <label className="block text-sm font-medium text-gray-900">

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Reflection } from "../types/reflection";
 import { useAuth } from "../context/AuthContext";
-import { Icon } from "lucide-react";
+
 type MessageProps = {
   reflect: Reflection;
   deleteFunc(id: number): void;
@@ -54,7 +54,7 @@ const MessageBoard: React.FC<MessageProps> = ({ reflect, deleteFunc }) => {
       icon: Droplet,
       color: "text-sky-600",
     },
-    suprise: {
+    surprise: {
       bg: "bg-gradient-to-r from-violet-50 to-violet-100",
       border: "border-l-10 border-violet-200",
       icon: Sparkles,
