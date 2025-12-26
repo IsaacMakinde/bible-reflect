@@ -9,7 +9,7 @@ const COLORS = [
   "#9ca3af", // neutral
 ];
 
-export default function EmotionPieChart({ data }) {
+export default function EmotionPieChart({ data, onSliceClick }) {
   return (
     <div className="w-full h-64">
       <ResponsiveContainer>
@@ -19,7 +19,10 @@ export default function EmotionPieChart({ data }) {
             dataKey="value"
             nameKey="name"
             outerRadius={80}
-            onClick={(data) => console.log(data.name)}
+            onClick={(data) => {
+              console.log(data.name);
+              onSliceClick(data.name);
+            }}
           >
             {data.map((_, index) => (
               <Cell key={index} fill={COLORS[index]} />

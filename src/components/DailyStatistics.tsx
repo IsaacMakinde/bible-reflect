@@ -15,8 +15,12 @@ import { Reflection } from "../types/reflection";
 
 type StatProps = {
   reflections: Reflection[];
+  onSliceClick: (emotion: string) => void;
 };
-const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
+const DailyStatistics: React.FC<StatProps> = ({
+  reflections,
+  onSliceClick,
+}) => {
   const disgust = reflections.filter(
     (reflection) => reflection.tone === "disgust"
   ).length;
@@ -103,7 +107,12 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
                 dataKey="value"
                 nameKey="name"
                 outerRadius="70%"
-                onClick={(data) => console.log(data.name)}
+                onClick={(data) => onSliceClick(data.name)}
+                label={({ name, value }) => {
+                  const percent = value / reflections.length;
+                  if (percent < 0.05) return "";
+                  return `${name} ${(percent * 100).toFixed(1)}%`;
+                }}
               >
                 {data.map((_, index) => (
                   <Cell key={index} fill={COLORS[index]} />
@@ -114,7 +123,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
           </ResponsiveContainer>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="  text-lime-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className=" text-lime-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("disgust")}
+          >
             <HeartCrack />
             <div className="flex flex-col justify-start text-start p-2">
               <p className="text-lg text-gray-500">Disgust</p>
@@ -124,7 +136,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
               </p>
             </div>
           </div>
-          <div className="  text-violet-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className="  text-violet-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("surprise")}
+          >
             <Sparkles />
             <div className="flex flex-col justify-start text-start p-2">
               <p className="text-lg text-gray-500">Suprise</p>
@@ -133,7 +148,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
               </p>
             </div>
           </div>
-          <div className="  text-sky-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className="  text-sky-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("sadness")}
+          >
             <Droplet />
             <div className="flex flex-col justify-start text-start p-2">
               <p className="terxt-lg text-gray-500">Sadness</p>
@@ -142,7 +160,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
               </p>
             </div>
           </div>
-          <div className="  text-amber-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className="  text-amber-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("joy")}
+          >
             <Smile />
             <div className="flex flex-col justify-start text-start p-2">
               <p className="text-lg text-gray-500">Joy</p>
@@ -151,7 +172,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
               </p>
             </div>
           </div>
-          <div className="  text-red-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className="  text-red-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("anger")}
+          >
             <Flame />
             <div className="flex flex-col justify-start text-start p-2 w-12 lg:w-40">
               <p className="text-lg text-gray-500">Anger</p>
@@ -161,7 +185,10 @@ const DailyStatistics: React.FC<StatProps> = ({ reflections }) => {
             </div>
           </div>
 
-          <div className=" text-gray-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row">
+          <div
+            className=" text-gray-600 border-gray-400 border-2 gap-2.5 p-4 bg-gray-50 hover:bg-gray-100 items-center rounded-xl flex flex-row"
+            onClick={() => onSliceClick("neutral")}
+          >
             <Meh />
             <div className="flex flex-col justify-start text-start p-2">
               <p className="text-lg text-gray-500">Neutral</p>

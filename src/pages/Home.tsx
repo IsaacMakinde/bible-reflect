@@ -5,13 +5,16 @@ import { useEffect } from "react";
 import ReflectionService from "../services/ReflectionService";
 import MessageBoard from "../components/MessageBoard";
 import { useAuth } from "../context/AuthContext";
-import DailyStatistics from "../components/DailyStatisctics";
+import DailyStatistics from "../components/DailyStatistics";
+import { Reflection, NewReflection } from "../types/reflection";
 
+// Todo  add post context
 const Home = () => {
   const [VOD, setVOD] = useState("");
   const [reference, setReference] = useState("");
   const [version, setVersion] = useState("");
-  const [reflections, setReflections] = useState([]);
+  const [reflections, setReflections] = useState<Reflection[]>([]);
+  const [allReflections, setAllReflections] = useState<Reflection[]>([]);
   const { currentUser, loading } = useAuth();
   console.log("✅ App component mounted");
 
@@ -19,13 +22,23 @@ const Home = () => {
     try {
       const data = await ReflectionService.getReflections();
       setReflections(data);
+      setAllReflections(data); // backup copy for reset
+
       console.log(" fetch update made", data);
-    } catch (err) {
+    } catch (err: any) {
       throw Error(`Failed to get reflection: ${err.message}`);
     }
   };
 
-  const deleteReflection = async (id) => {
+  const filterEmotion = async (emotion: String) => {
+    const copy = allReflections.filter(
+      (reflection) =>
+        reflection.tone.toLocaleLowerCase() == emotion.toLocaleLowerCase()
+    );
+    setReflections(copy);
+  };
+
+  const deleteReflection = async (id: number) => {
     if (!currentUser) {
       return;
     }
@@ -39,14 +52,23 @@ const Home = () => {
     }
   };
 
-  const addReflection = async (content, tone, word_count) => {
+  const addReflection = async (
+    content: string,
+    tone: string,
+    word_count: number
+  ) => {
     if (!currentUser) {
       return;
     }
     console.log("addReflection was hit", content, tone, word_count, reference);
-    const newReflection = {
+    let name = "Anon";
+    if (currentUser.displayName) {
+      name = currentUser.displayName;
+    }
+
+    const newReflection: NewReflection = {
       user_id: currentUser.uid,
-      user_name: currentUser.displayName,
+      user_name: name,
       content: content,
       reference_verse: reference,
       tone: tone,
@@ -101,25 +123,27 @@ const Home = () => {
           ></VerseDisplay>
           <div className="h-full flex flex-col justify-between items-center w-10/12 mx-auto gap-20 text-black">
             <ReflectionForm addReflection={addReflection} />
-            {reflections.length > 0 ? (
-              <>
-                <div
-                  className="flex flex-col bg-white
-             w-full border border-1 border-gray-300  p-4 h-auto rounded-3xl shadow-md gap-4"
-                >
-                  {reflections.map((reflection) => (
-                    <MessageBoard
-                      key={reflection.id}
-                      reflect={reflection}
-                      deleteFunc={deleteReflection}
-                    ></MessageBoard>
-                  ))}
-                </div>
-                <DailyStatistics reflections={reflections}></DailyStatistics>
-              </>
-            ) : (
-              <div></div>
-            )}
+
+            <>
+              {/* <div className="flex flex-row justify-between bg-white w-full border border-gray-300 p-8 h-auto rounded-3xl shadow-md">
+                <p>Showing Happy Mesages</p>
+                <button>Clear Filter</button>
+              </div> */}
+              <div className="flex flex-col bg-white w-full border border-gray-300 p-4 h-auto rounded-3xl shadow-md gap-4">
+                {reflections.map((reflection) => (
+                  <MessageBoard
+                    key={reflection.id}
+                    reflect={reflection}
+                    deleteFunc={deleteReflection}
+                  />
+                ))}
+              </div>
+
+              <DailyStatistics
+                reflections={allReflections}
+                onSliceClick={filterEmotion}
+              />
+            </>
           </div>
         </div>
       )}
