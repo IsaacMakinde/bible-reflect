@@ -16,7 +16,6 @@ const fetchJson = async <T>(
 };
 
 const ReflectionService = {
-  // todo create reflection
   getVerseOfTheDay: async () => {
     const response = await fetch(`${verseURL}`, {
       method: "GET",
@@ -68,8 +67,6 @@ const ReflectionService = {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
   },
-
-  // todo get reflection
 };
 
 export default ReflectionService;

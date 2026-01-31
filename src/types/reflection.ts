@@ -1,6 +1,4 @@
 export interface NewReflection {
-  user_id: string;
-  user_name: string;
   content: string;
   tone: string;
   word_count: number;
@@ -9,6 +7,8 @@ export interface NewReflection {
 
 export interface Reflection extends NewReflection {
   id: number;
+  user_id: string;
+  user_name: string;
   created_at: number;
   updated_at: string;
   entry_date: number;

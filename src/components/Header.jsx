@@ -7,14 +7,14 @@ const Header = () => {
   return (
     <header className="bg-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <a className="block text-teal-600" href="#">
+        <Link className="block text-teal-600" to={"/"}>
           <span className="sr-only">Home</span>
-          <image href="../assets/igm_logo.png"></image>
+          <img href="../assets/igm_logo.png"></img>
           <img
             src={logo}
             className="rounded-full border-2 border-sky-500 hover:scale-110 transition:ease-in duration-300 h-20 w-20"
           ></img>
-        </a>
+        </Link>
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
           <nav aria-label="Global" className="hidden md:block">
@@ -70,11 +70,11 @@ const Header = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                stroke-width="2"
+                strokeWidth="2"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
                 ></path>
               </svg>

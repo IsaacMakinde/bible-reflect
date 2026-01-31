@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { passwordMatch } from "../utils/validator";
 import { Eye, EyeOff } from "lucide-react";
+import React from "react";
 
 const SignUp = () => {
   const { userLoggedIn } = useAuth();
@@ -85,11 +86,7 @@ const SignUp = () => {
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 cursor-pointer"
                   onClick={() => setIsHidden(!isHidden)}
                 >
-                  {isHidden ? (
-                    <Eye className="w-5 h-5 text-gray-500" />
-                  ) : (
-                    <EyeOff className="w-5 h-5 text-gray-500" />
-                  )}
+                  {isHidden ? <Eye /> : <EyeOff />}
                 </div>
               </div>
             </div>

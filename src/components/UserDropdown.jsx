@@ -7,16 +7,13 @@ const UserDropdown = ({ currentUser }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { loading, setLoading } = useAuth();
+  const { loading } = useAuth();
 
   const onSignOut = async (e) => {
     e.preventDefault();
     if (!loading) {
-      setLoading(true);
-
       await doSignOut();
       navigate("/");
-      setLoading(false);
     }
   };
 
@@ -27,7 +24,7 @@ const UserDropdown = ({ currentUser }) => {
       }
     };
 
-    console.log(currentUser);
+    // console.log(currentUser);
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -41,7 +38,11 @@ const UserDropdown = ({ currentUser }) => {
       <img
         onClick={() => setOpen(!open)}
         className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 mx-auto cursor-pointer"
-        src={currentUser.photoURL}
+        src={
+          currentUser.photoURL
+            ? currentUser.photoURL
+            : import.meta.env.VITE_DEFAULT_AVATAR_URL
+        }
         alt="User avatar"
         aria-haspopup="true"
         aria-expanded={open}

@@ -1,5 +1,6 @@
 import { ReactNode, FC } from "react";
 import { GoogleIcon } from "../icons/GoogleIcon";
+import React from "react";
 import {
   BookOpen,
   LayoutDashboard,
@@ -27,19 +28,19 @@ type IconButtonProps = {
 const iconButtons: Record<IconType, { label: string; svg: ReactNode }> = {
   journal: {
     label: "Journal",
-    svg: <BookOpen className="h-6 w-6" />,
+    svg: <BookOpen />,
   },
   dashboard: {
     label: "Dashboard",
-    svg: <LayoutDashboard className="h-6 w-6" />,
+    svg: <LayoutDashboard />,
   },
   settings: {
     label: "Settings",
-    svg: <Settings className="h-6 w-6" />,
+    svg: <Settings />,
   },
   study: {
     label: "Study",
-    svg: <GraduationCap className="h-6 w-6" />,
+    svg: <GraduationCap />,
   },
   google: {
     label: "Sign in with Google",
@@ -47,7 +48,7 @@ const iconButtons: Record<IconType, { label: string; svg: ReactNode }> = {
   },
   imagePlus: {
     label: "Add image",
-    svg: <ImagePlus className="h-6 w-6"></ImagePlus>,
+    svg: <ImagePlus></ImagePlus>,
   },
 };
 

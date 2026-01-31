@@ -101,7 +101,7 @@ const DailyStatistics: React.FC<StatProps> = ({
       <div className=" flex flex-col w-full lg:w-10/12 lg:flex-row items-center justify-around  p-4 gap-4">
         <div className="w-full lg:w-1/2 h-64 md:h-96">
           <ResponsiveContainer>
-            <PieChart>
+            <PieChart width={1}>
               <Pie
                 data={data}
                 dataKey="value"

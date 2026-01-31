@@ -15,7 +15,6 @@ const ReflectionForm: React.FC<ReflectProps> = ({ addReflection }) => {
 
   const handleSubmit = async (e: any) => {
     console.log("addReflection prop:", addReflection);
-    console.log("Cotent");
     setWaitingForResponse(true);
     e.preventDefault();
     const trimmed = text.trim();

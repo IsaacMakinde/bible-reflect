@@ -7,6 +7,7 @@ import MessageBoard from "../components/MessageBoard";
 import { useAuth } from "../context/AuthContext";
 import DailyStatistics from "../components/DailyStatistics";
 import { Reflection, NewReflection } from "../types/reflection";
+import React from "react";
 
 // Todo  add post context
 const Home = () => {
@@ -16,7 +17,6 @@ const Home = () => {
   const [reflections, setReflections] = useState<Reflection[]>([]);
   const [allReflections, setAllReflections] = useState<Reflection[]>([]);
   const { currentUser, loading } = useAuth();
-  console.log("✅ App component mounted");
 
   const fetchReflection = async () => {
     try {
@@ -61,29 +61,23 @@ const Home = () => {
       return;
     }
     console.log("addReflection was hit", content, tone, word_count, reference);
-    let name = "Anon";
-    if (currentUser.displayName) {
-      name = currentUser.displayName;
-    }
 
     const newReflection: NewReflection = {
-      user_id: currentUser.uid,
-      user_name: name,
       content: content,
-      reference_verse: reference,
       tone: tone,
       word_count: word_count,
+      reference_verse: reference,
     };
 
     console.log(newReflection);
 
     try {
       const token = await currentUser.getIdToken();
-      const repsonse = await ReflectionService.createReflection(
+      const response = await ReflectionService.createReflection(
         newReflection,
         token
       );
-      console.log(repsonse, " from add");
+      console.log(response, " from add");
       await fetchReflection();
     } catch (err) {
       console.log(err);
@@ -91,19 +85,15 @@ const Home = () => {
   };
 
   useEffect(() => {
+    
     const fetchVerse = async () => {
       const verseOfDay = await ReflectionService.getVerseOfTheDay();
-      console.log(verseOfDay);
-      console.log(currentUser);
       setVOD(verseOfDay.verse.details.text);
       setReference(verseOfDay.verse.details.reference);
       setVersion(verseOfDay.verse.details.version);
     };
-
+    console.log("✅ Home mounted");
     fetchVerse();
-  }, []);
-
-  useEffect(() => {
     fetchReflection();
   }, []);
 
@@ -125,10 +115,6 @@ const Home = () => {
             <ReflectionForm addReflection={addReflection} />
 
             <>
-              {/* <div className="flex flex-row justify-between bg-white w-full border border-gray-300 p-8 h-auto rounded-3xl shadow-md">
-                <p>Showing Happy Mesages</p>
-                <button>Clear Filter</button>
-              </div> */}
               <div className="flex flex-col bg-white w-full border border-gray-300 p-4 h-auto rounded-3xl shadow-md gap-4">
                 {reflections.map((reflection) => (
                   <MessageBoard
