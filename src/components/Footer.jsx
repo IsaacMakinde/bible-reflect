@@ -180,7 +180,7 @@ const Footer = () => {
 
                 <li>
                   <a
-                    href="https://group-planner-project-eptu52myr-isaacmakindes-projects.vercel.app/"
+                    href="https://group-planner-project-isaacmakindes-projects.vercel.app/"
                     className="text-gray-700 transition hover:opacity-75"
                     target="_blank"
                     rel="noreffer noopener"
